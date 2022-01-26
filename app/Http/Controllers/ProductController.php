@@ -27,10 +27,11 @@ class ProductController extends Controller
 
         $request->validate([
 
-            'name'=>'required',
-            'slug'=>'required',
-            'price'=>['required','numeric']
+            'name'=>['required','unique:products'],
+            'slug'=> ['required','unique:products'],
+            'price'=>['required','numeric','min:100']
         ]);
+
         return Product::create($request->all());
     }
 
@@ -43,7 +44,7 @@ class ProductController extends Controller
     public function show($id)
     {
 
-        return Product::find($id) ?? "There is nothing to show with the id of $id";
+        return Product::find($id) ?? "There is nothing to show ";
     }
 
     /**
@@ -72,5 +73,16 @@ class ProductController extends Controller
     {
         Product::destroy($id);
         return Product::all();
+    }
+
+     /**
+     * Search for product according to the name.
+     *
+     * @param  str $name
+     * @return \Illuminate\Http\Response
+     */
+    public function search($name)
+    {
+        return Product::where('name','like','%'.$name.'%')->get();
     }
 }
