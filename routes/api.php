@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ProductController;
 use GuzzleHttp\Middleware;
 use Illuminate\Http\Request;
@@ -17,6 +18,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 //Route::resource('/products', ProductController::class);
+Route::post('register', [AuthController::class,'register']);
 Route::get('/products/search/{name}',[ProductController::class,'search']);
 Route::get('/products',[ProductController::class,'index']);
 Route::get('/products/{id}',[ProductController::class,'show']);
