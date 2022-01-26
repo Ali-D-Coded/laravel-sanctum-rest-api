@@ -42,7 +42,8 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        return Product::find($id);
+
+        return Product::find($id) ?? "There is nothing to show with the id of $id";
     }
 
     /**
@@ -54,7 +55,11 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+       // if(Product::find($id) === true){
+            $product = Product::find($id) ;
+            $product->update($request->all());
+      //  }
+        return $product;
     }
 
     /**
