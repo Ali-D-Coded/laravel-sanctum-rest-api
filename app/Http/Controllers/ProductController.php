@@ -29,7 +29,7 @@ class ProductController extends Controller
 
             'name'=>'required',
             'slug'=>'required',
-            'price'=>'required'
+            'price'=>['required','numeric']
         ]);
         return Product::create($request->all());
     }
@@ -70,6 +70,7 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Product::destroy($id);
+        return Product::all();
     }
 }
